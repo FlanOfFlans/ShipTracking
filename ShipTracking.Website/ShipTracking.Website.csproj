@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <SpaRoot>..\ShipTracking.Vue</SpaRoot>
+    <SpaProxyServerUrl>http://localhost:3001</SpaProxyServerUrl>
+    <SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="8.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.11">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ShipTracking\ShipTracking.csproj" />
+    <ProjectReference Include="..\ShipTracking.EntityFramework\ShipTracking.EntityFramework.csproj" />
+  </ItemGroup>
+<Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+  <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+  <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
+  <ItemGroup>
+    <DistFiles Include="$(SpaRoot)build\**" />
+    <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+      <RelativePath>wwwroot\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </ResolvedFileToPublish>
+  </ItemGroup>
+</Target>
+
+</Project>

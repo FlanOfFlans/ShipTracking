@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file: app.env
+  smtp:
+    image: rnwood/smtp4dev
+    ports:
+      - "2525:25"
+      - 3000:80
+
+volumes:
+  postgres_data: {}
+  smtp4dev-data: {}
